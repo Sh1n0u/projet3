@@ -60,9 +60,6 @@ header {
 	justify-content: space-between;
 	margin: 50px 0
 }
-section {
-	margin: 50px 0
-}
 
 h1{
 	display: flex;
@@ -103,6 +100,7 @@ li:hover, li:hover a{
 #introduction {
 	display: flex;
 	align-items: center;
+	padding-right: 150px;
 }
 #introduction figure {
 	flex: 1
@@ -123,6 +121,11 @@ li:hover, li:hover a{
 #introduction p {
 	margin-bottom: 0.5em;
 }
+
+#portfolio {
+	margin: 50px 0px;
+}
+
 #portfolio h2 {
 	text-align: center;
 	margin-bottom: 1em;
@@ -263,4 +266,46 @@ input[type="email"], input[type="password"] {
 	font-weight: 700;
 	margin-top: 20px;
 	color: white;
+}
+
+/*              */
+/* Mode Edition */
+/*              */
+.admin-band {
+	display: flex;
+	height: 50px;
+	width: auto;
+	background-color: black;
+	justify-content: center;
+	align-items: center;
+	font-family: 'syne';
+}
+
+.admin-band .fa-pen-to-square, .god-mode {
+	color: white;
+}
+
+.publish {
+	color: black;
+	background-color: white;
+	padding: 10px 25px;
+	border-radius: 60px;
+	margin-left: 20px;
+}
+
+.align {
+	padding-left: 57px;
+	padding-top: 10px;
+}
+
+.dflex {
+	display: flex;
+}
+
+.project-title {
+	justify-content: center;
+}
+
+.gm {
+	display: none;
 }

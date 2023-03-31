@@ -47,10 +47,7 @@ const buttonName = ["Tous", "Objets", "Appartements", "Hôtels & Restaurants"];
     };
 
 
-//
 // Filtrage de la page
-//
-
 buttonBar.addEventListener('click', (event) => {
     const id = event.target.getAttribute('data-id');
     if (id === 'all') {
@@ -62,7 +59,7 @@ buttonBar.addEventListener('click', (event) => {
 });
 
 
-
+// Redirection et suppression de token en cas de click sur login/logut
 const login = document.getElementById('login');
 login.addEventListener('click', () => {
   if (localStorage.getItem('token')) {
@@ -74,6 +71,13 @@ login.addEventListener('click', () => {
 });
 
 if (localStorage.getItem('token')) {
+// affichage du bouton Log Out si l'utilisateur est connecté
   const logOutElement = document.getElementById('login');
-  logOutElement.innerHTML = "Log out"
-}
+  logOutElement.innerHTML = "Log out";
+// affichage du menu admin en étant connecté
+  const gmElements = document.querySelectorAll('.gm');
+  gmElements.forEach(element => {
+    element.classList.remove('gm');
+  });
+};
+

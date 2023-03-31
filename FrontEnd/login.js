@@ -35,7 +35,6 @@ form.addEventListener('click', (event) => {
       localStorage.setItem('token', data.token);
       // Rediriger l'utilisateur vers la page d'accueil, par exemple :
       window.location.href = 'index.html';
-
     } else {
       // Si l'authentification échoue, afficher un message d'erreur
       alert('Email ou mot de passe incorrect');
