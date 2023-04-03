@@ -9,8 +9,10 @@
 		<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 		<meta name="description" content="index de la page de Sophie Bluel">
 		<link rel="stylesheet" href="./assets/style.css">
+		<link rel="stylesheet" href="./assets/modal.css">
 		<script src="https://kit.fontawesome.com/9e8c8ab3c0.js" crossorigin="anonymous"></script>
-		<script type="module" src="gallery.js"></script>
+		<script type="module" src="./assets/gallery.js"></script>
+		<script type="module" src="./assets/modal.js"></script>
 
 	</head>
 	<body>
@@ -49,10 +51,13 @@
 			<section id="portfolio">
 				<div class="dflex project-title">
 					<h2>Mes projets</h2>
-					<div class="gm dflex align">
-						<i class="fa-regular fa-pen-to-square"></i>
-						<p>modifier</p>
-					</div>
+					<a href="" class="js-modal" data-target="#modal-modif">
+						<div class="gm dflex align">
+							<i class="fa-regular fa-pen-to-square"></i>
+							<p>modifier</p>
+						</div>
+					</a>
+
 				</div>
 				<div class="button-bar"></div>
 				<div class="gallery"></div>
@@ -79,5 +84,11 @@
 				</ul>
 			</nav>
 		</footer>
+		<aside id="modal-modif" class="modal modal-disable">
+			<div class="modal-wrapper">
+				<button class="closeModal">X</button>
+				<h2 id="title-modal">Gallerie Photo</h2>
+			</div>
+		</aside>
 	</body>
 </html>
