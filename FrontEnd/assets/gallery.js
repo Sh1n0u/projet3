@@ -1,26 +1,32 @@
 const response = await fetch("http://localhost:5678/api/works");
 export const articlesAll = await response.json();
 
-export function createFigure(article) {
+function createFigure(article) {
     // création de la balise <figure>
     const figureElement = document.createElement("figure");
     // création de l'id de chaque figure
-    figureElement.setAttribute('data-id', article.id)
+    figureElement.setAttribute('data-id', article.id);
+    figureElement.dataset.categoryId = article.category.id;
     // contenu de la figure
     const imageElement = document.createElement("img");
     imageElement.src = article.imageUrl;
     const titreElement = document.createElement("figcaption");
     titreElement.innerText = article.title;
-
     // ajout des éléments dans la figure
     figureElement.appendChild(imageElement);
     figureElement.appendChild(titreElement);
     return figureElement;
 }
 
-export function updateGallery(articles) {
+function updateGallery(articles) {
     const gallery = document.querySelector(".gallery");
     gallery.innerHTML = "";
+    /**
+     * Je boucle sur mes elements
+     *     element.remove();
+     * fin de la boucle
+     */
+
     // boucle de lecture et d'affichage des objets de l'array
     for (const article of articles) {
         const figure = createFigure(article);
@@ -29,6 +35,7 @@ export function updateGallery(articles) {
 };
 updateGallery(articlesAll);
 
+// document.querySelectorAll(':not(input[type=text])') => get tous les element input de type texte
 //
 // Générateur de bouton de filtrage
 //
