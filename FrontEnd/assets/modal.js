@@ -29,7 +29,7 @@ function updateModal(articles) {
 }
 updateModal(articlesAll);
 
-
+// Fonction d'ouverture de modale en cliquant sur modifier
 const openModal = function(e) {
     e.preventDefault();
     const target = document.querySelector(e.currentTarget.getAttribute('data-target'));
@@ -39,14 +39,35 @@ const openModal = function(e) {
     }
 };
 
+// Fonction de fermeture de modale en cliquant sur la croix
 const closeModal = function (e) {
     e.preventDefault();
     const modal = e.currentTarget.closest(".modal")
-
     modal.classList.add("modal-disable");
     modal.removeEventListener('click', closeModal);
 };
-
+// Ouverture de la modal
 document.querySelectorAll('.js-modal').forEach(a => {
     a.addEventListener('click', openModal);
 });
+
+//
+// Changement de fenetre de modal quand on clique sur ajouter une photo
+//
+const modalWindow = document.querySelector('.modal-window');
+const modalWindowAdd = document.querySelector('.modal-window-add');
+const addButton = document.querySelector('.add');
+
+addButton.addEventListener('click', function() {
+    modalWindow.style.display = 'none';
+    modalWindowAdd.style.display = 'block';
+});
+
+//
+// Retour à la modal précédente
+//
+const previousModal = document.querySelector('.previous-modal');
+previousModal.addEventListener('click', function () {
+    modalWindow.style.display = 'block';
+    modalWindowAdd.style.display = 'none';
+})

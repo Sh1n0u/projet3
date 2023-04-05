@@ -87,7 +87,9 @@ if (localStorage.getItem('token')) {
     // affichage du menu admin en étant connecté
     const gmElements = document.querySelectorAll('.gm');
     gmElements.forEach(element => {
-        element.classList.remove('gm');
+    element.classList.remove('gm');
+    const buttonBar = document.querySelector('.button-bar');
+    buttonBar.style.display = 'none';
     });
 };
 

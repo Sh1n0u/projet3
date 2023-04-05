@@ -15,23 +15,38 @@ dialog {
     align-items: center;
 }
 
-.title-gallery-modal {
-    display: flex;
-    justify-content: center;
-
-}
-
 .modal-window {
     width: 630px;
     height: 750px;
     max-width: 100vw;
-    height: 750px;
     background-color: white;
     border-radius: 10px;
 }
 
 .modal-disable {
     display: none
+}
+
+.title-gallery-modal {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    padding-top: 20px
+}
+
+.title-gallery-modal h2 {
+    all: initial;
+    font-size: 26px;
+    font-family: 'Work Sans';
+}
+
+.close-modal {
+    all:initial;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+
 }
 
 .img-modal {
@@ -72,4 +87,26 @@ dialog {
     padding: 3px;
     background-color: black;
     border-radius: 5px;
+}
+
+.modal-window-add {
+    display: none;
+    height: 700px;
+    width: 700px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.previous-modal {
+    all: initial;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.registration {
+    width: 50%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
 }
