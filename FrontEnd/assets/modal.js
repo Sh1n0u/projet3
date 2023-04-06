@@ -70,4 +70,55 @@ const previousModal = document.querySelector('.previous-modal');
 previousModal.addEventListener('click', function () {
     modalWindow.style.display = 'block';
     modalWindowAdd.style.display = 'none';
-})
+});
+
+//
+//Requete de récupération des catégories depuis l'API
+//
+const select = document.getElementById("category");
+fetch("http://localhost:5678/api/categories")
+    .then(response => response.json())
+    .then(categories => {
+    categories.forEach(category => {
+        const option = document.createElement("option");
+        option.value = category.id;
+        option.text = category.name;
+        select.add(option);
+    });
+});
+
+
+
+
+
+
+const token = localStorage.getItem('token');
+const imgInput = document.querySelector('#img-input');
+const titleInput = document.querySelector('#title');
+const categoryInput = document.querySelector('#category');
+const submitBtn = document.querySelector('.validation');
+
+submitBtn.addEventListener('click', (event) => {
+    event.preventDefault();
+
+    let bearer = 'Bearer ' + token;
+    let data = new FormData ()
+    data.append('title', titleInput.value)
+
+
+    fetch('http://localhost:5678/api/works', {
+        method: 'POST',
+        headers: {
+            'Authorization': bearer,
+        },
+        body: data,
+    })
+    .then( response => response.json())
+    .then (data => {
+        console.log(data);
+    })
+    .catch   (error => {
+        console.log(error);
+    });
+});
+

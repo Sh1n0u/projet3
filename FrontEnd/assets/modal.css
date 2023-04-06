@@ -106,7 +106,25 @@ dialog {
 
 .registration {
     width: 50%;
+    height: 70%;
     margin: auto;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    border-bottom: 1px solid #B3B3B3;
+}
+
+.registration label {
+    padding: 10px 0px;
+}
+
+.registration input[type="text"], .registration select {
+    height: 30px;
+    font-size: 15px;
+}
+
+.validation {
+    display: flex;
+    justify-content: center;
+
 }
