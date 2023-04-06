@@ -7,6 +7,7 @@ exports.findAll = async (req, res) =>  {
 }
 
 exports.create = async (req, res) => {
+	console.log("Ici c'est paris!", req.body);
 	const host = req.get('host');
 	const title = req.body.title;
 	const categoryId = req.body.category;
@@ -22,7 +23,7 @@ exports.create = async (req, res) => {
 		return res.status(201).json(work)
 	}catch (err) {
 		console.error(err);
-		return res.status(500).json({ error: new Error('Something went wrong') })
+		return res.status(500).json({ error: new Error('Something went wrong').message })
 	}
 }
 
@@ -31,7 +32,8 @@ exports.delete = async (req, res) => {
 		await Works.destroy({where:{id: req.params.id}})
 		return res.status(204).json({message: 'Work Deleted Successfully'})
 	}catch(e){
-		return res.status(500).json({error: new Error('Something went wrong')})
+		console.error(err);
+		return res.status(500).json({error: new Error('Something went wrong').message })
 	}
 
 }

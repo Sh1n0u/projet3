@@ -6,7 +6,8 @@ exports.findAll = async (req, res) =>  {
 		const works = await Categories.findAll();
 		return res.status(200).json(works);
 	}catch(err){
-		return res.status(500).json({ error: new Error('Something went wrong')})
+		console.error(err);
+		return res.status(500).json({ error: new Error('Something went wrong').message})
 	}
 
 }
