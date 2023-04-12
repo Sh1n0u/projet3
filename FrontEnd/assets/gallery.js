@@ -11,7 +11,7 @@ function createFigure(article) {
     const imageElement = document.createElement("img");
     imageElement.src = article.imageUrl;
     const titreElement = document.createElement("figcaption");
-    titreElement.innerText = article.title;
+    titreElement.textContent = article.title;
     // ajout des éléments dans la figure
     figureElement.appendChild(imageElement);
     figureElement.appendChild(titreElement);
@@ -20,13 +20,7 @@ function createFigure(article) {
 
 function updateGallery(articles) {
     const gallery = document.querySelector(".gallery");
-    gallery.innerHTML = "";
-    /**
-     * Je boucle sur mes elements
-     *     element.remove();
-     * fin de la boucle
-     */
-
+    gallery.textContent = '';
     // boucle de lecture et d'affichage des objets de l'array
     for (const article of articles) {
         const figure = createFigure(article);
@@ -40,18 +34,22 @@ updateGallery(articlesAll);
 // Générateur de bouton de filtrage
 //
 const buttonBar = document.querySelector('.button-bar');
-const buttonName = ["Tous", "Objets", "Appartements", "Hôtels & Restaurants"];
+const allButton = document.createElement('button');
+allButton.textContent = 'Tous';
+allButton.setAttribute('data-id', 'all');
+buttonBar.appendChild(allButton);
 
-for (let i = 0; i < buttonName.length; i++) {
-    const button = document.createElement('button');
-    button.textContent = buttonName[i];
-    if (i === 0) {
-        button.setAttribute('data-id', 'all');
-    } else {
-        button.setAttribute('data-id', i);
-    }
-    buttonBar.appendChild(button);
-};
+fetch('http://localhost:5678/api/categories')
+    .then(response => response.json())
+    .then(categories => {
+        for (let i = 0; i < categories.length; i++) {
+            const button = document.createElement('button');
+            button.textContent = categories[i].name;
+            button.setAttribute('data-id', categories[i].id);
+            buttonBar.appendChild(button);
+        }
+    });
+
 
 // Filtrage de la page
 buttonBar.addEventListener('click', (event) => {

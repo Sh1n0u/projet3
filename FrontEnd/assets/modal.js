@@ -6,11 +6,35 @@ function createItem(article) {
     const itemImageElement = document.createElement("img");
     itemImageElement.src = article.imageUrl;
     const textElement = document.createElement("p");
-    textElement.innerText = "Editer";
+    textElement.textContent = "Editer";
     const deleteElement = document.createElement("span");
     deleteElement.classList.add("delete");
     const iconElement = document.createElement("i");
     iconElement.classList.add("fa-solid", "fa-trash-can", "background-trash");
+
+    deleteElement.addEventListener("click", function(event) {
+        const id = event.currentTarget.parentNode.getAttribute("data-id");
+        event.preventDefault();
+        let bearer = 'Bearer ' + token ;
+
+        fetch(`http://localhost:5678/api/works/${id}`, {
+            method: "DELETE",
+            headers: {
+                'Authorization': bearer,
+            }
+        }).then(response => {
+            if (response.ok) {
+                const itemToDelete = document.querySelector(`[data-id="${id}"]`);
+                console.log(itemToDelete);
+                itemToDelete.remove();
+            } else {
+                throw new Error("Erreur lors de la suppression de l'élément");
+            }
+            })
+            .catch(error => {
+                console.error(error);
+            });
+        });
 
     deleteElement.appendChild(iconElement);
     itemElement.appendChild(deleteElement);
@@ -21,7 +45,9 @@ function createItem(article) {
 
 function updateModal(articles) {
     const modal = document.querySelector('.img-modal');
-    modal.innerHTML = "";
+    while (modal.firstChild) {
+        modal.removeChild(modal.firstChild);
+    }
     for (const article of articles) {
         const item = createItem(article);
         modal.appendChild(item);
@@ -91,7 +117,9 @@ fetch("http://localhost:5678/api/categories")
 
 
 
-
+//
+// fonction POST
+//
 const token = localStorage.getItem('token');
 const imgInput = document.querySelector('#img-input');
 const titleInput = document.querySelector('#title');
@@ -103,7 +131,9 @@ submitBtn.addEventListener('click', (event) => {
 
     let bearer = 'Bearer ' + token;
     let data = new FormData ()
+    data.append('image', imgInput.files[0])
     data.append('title', titleInput.value)
+    data.append('category', categoryInput.value)
 
 
     fetch('http://localhost:5678/api/works', {
@@ -121,3 +151,4 @@ submitBtn.addEventListener('click', (event) => {
         console.log(error);
     });
 });
+
