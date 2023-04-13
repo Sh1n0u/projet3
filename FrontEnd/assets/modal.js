@@ -12,10 +12,11 @@ function createItem(article) {
     const iconElement = document.createElement("i");
     iconElement.classList.add("fa-solid", "fa-trash-can", "background-trash");
 
-    deleteElement.addEventListener("click", function(event) {
+    deleteElement.addEventListener("click", function (event) {
         const id = event.currentTarget.parentNode.getAttribute("data-id");
         event.preventDefault();
-        let bearer = 'Bearer ' + token ;
+        event.stopPropagation();
+        let bearer = 'Bearer ' + token;
 
         fetch(`http://localhost:5678/api/works/${id}`, {
             method: "DELETE",
@@ -30,11 +31,11 @@ function createItem(article) {
             } else {
                 throw new Error("Erreur lors de la suppression de l'élément");
             }
-            })
+        })
             .catch(error => {
                 console.error(error);
             });
-        });
+    });
 
     deleteElement.appendChild(iconElement);
     itemElement.appendChild(deleteElement);
@@ -56,7 +57,7 @@ function updateModal(articles) {
 updateModal(articlesAll);
 
 // Fonction d'ouverture de modale en cliquant sur modifier
-const openModal = function(e) {
+const openModal = function (e) {
     e.preventDefault();
     const target = document.querySelector(e.currentTarget.getAttribute('data-target'));
     if (target) {
@@ -84,7 +85,7 @@ const modalWindow = document.querySelector('.modal-window');
 const modalWindowAdd = document.querySelector('.modal-window-add');
 const addButton = document.querySelector('.add');
 
-addButton.addEventListener('click', function() {
+addButton.addEventListener('click', function () {
     modalWindow.style.display = 'none';
     modalWindowAdd.style.display = 'block';
 });
@@ -105,13 +106,13 @@ const select = document.getElementById("category");
 fetch("http://localhost:5678/api/categories")
     .then(response => response.json())
     .then(categories => {
-    categories.forEach(category => {
-        const option = document.createElement("option");
-        option.value = category.id;
-        option.text = category.name;
-        select.add(option);
+        categories.forEach(category => {
+            const option = document.createElement("option");
+            option.value = category.id;
+            option.text = category.name;
+            select.add(option);
+        });
     });
-});
 
 
 
@@ -124,16 +125,22 @@ const token = localStorage.getItem('token');
 const imgInput = document.querySelector('#img-input');
 const titleInput = document.querySelector('#title');
 const categoryInput = document.querySelector('#category');
-const submitBtn = document.querySelector('.validation');
+const submitBtn = document.querySelector('.registration');
 
-submitBtn.addEventListener('click', (event) => {
+submitBtn.addEventListener('submit', (event) => {
     event.preventDefault();
 
+    /*
+     Vérifier la validité des input avant de consommer le service de création de projet
+       - vérifier que le nom du projet est renseigné
+       - vérifier que le fichier n'excède pas les 4Mo
+       - vérifier le format du fichier (jpg ou png)
+    */
     let bearer = 'Bearer ' + token;
-    let data = new FormData ()
-    data.append('image', imgInput.files[0])
-    data.append('title', titleInput.value)
-    data.append('category', categoryInput.value)
+    let data = new FormData();
+    data.append('image', imgInput.files[0]);
+    data.append('title', titleInput.value);
+    data.append('category', categoryInput.value);
 
 
     fetch('http://localhost:5678/api/works', {
@@ -143,12 +150,23 @@ submitBtn.addEventListener('click', (event) => {
         },
         body: data,
     })
-    .then( response => response.json())
-    .then (data => {
-        console.log(data);
-    })
-    .catch   (error => {
-        console.log(error);
-    });
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error('ça morche po');
+        })
+        .then(work => {
+            articlesAll.push(work);
+            // Mise à jour de la modale avec la liste mise à jour
+            updateModal(articlesAll);
+            //reset le formulaire (qu'il soit vide pour un nouvel ajout)
+            event.target.reset();
+            previousModal.click();
+        })
+        .catch(error => {
+            console.log(error);
+        });
 });
+
 
