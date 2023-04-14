@@ -20,7 +20,9 @@ function createFigure(article) {
 
 function updateGallery(articles) {
     const gallery = document.querySelector(".gallery");
-    gallery.textContent = '';
+    while (gallery.firstChild) {
+        gallery.removeChild(gallery.firstChild);
+    }
     // boucle de lecture et d'affichage des objets de l'array
     for (const article of articles) {
         const figure = createFigure(article);
@@ -29,10 +31,6 @@ function updateGallery(articles) {
 };
 updateGallery(articlesAll);
 
-// document.querySelectorAll(':not(input[type=text])') => get tous les element input de type texte
-//
-// Générateur de bouton de filtrage
-//
 const buttonBar = document.querySelector('.button-bar');
 const allButton = document.createElement('button');
 allButton.textContent = 'Tous';
@@ -50,7 +48,6 @@ fetch('http://localhost:5678/api/categories')
         }
     });
 
-
 // Filtrage de la page
 buttonBar.addEventListener('click', (event) => {
     const id = event.target.getAttribute('data-id');
@@ -65,7 +62,6 @@ buttonBar.addEventListener('click', (event) => {
         updateGallery(filteredArticles);
     }
 });
-
 
 // Redirection et suppression de token en cas de click sur login/logut
 const login = document.getElementById('login');

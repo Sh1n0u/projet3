@@ -78,6 +78,17 @@ document.querySelectorAll('.js-modal').forEach(a => {
     a.addEventListener('click', openModal);
 });
 
+const closeModalOnEscape = function (e) {
+    if (e.key === "Escape") {
+        const modal = document.querySelector(".modal:not(.modal-disable)");
+        if (modal) {
+            modal.classList.add("modal-disable");
+        }
+    }
+};
+// Ajouter l'écouteur d'événements sur le document
+document.addEventListener("keydown", closeModalOnEscape);
+
 //
 // Changement de fenetre de modal quand on clique sur ajouter une photo
 //
@@ -126,23 +137,34 @@ const imgInput = document.querySelector('#img-input');
 const titleInput = document.querySelector('#title');
 const categoryInput = document.querySelector('#category');
 const submitBtn = document.querySelector('.registration');
-
+const gallery = document.querySelector(".gallery");
 submitBtn.addEventListener('submit', (event) => {
     event.preventDefault();
 
-    /*
-     Vérifier la validité des input avant de consommer le service de création de projet
-       - vérifier que le nom du projet est renseigné
-       - vérifier que le fichier n'excède pas les 4Mo
-       - vérifier le format du fichier (jpg ou png)
-    */
     let bearer = 'Bearer ' + token;
     let data = new FormData();
+    const maxFileSize = 4 * 1024 * 1024; // 4 Mo en octets
+    const allowedFileTypes = ['image/jpeg', 'image/png'];
+
+    // Vérifier que le fichier a été sélectionné
+    if (!imgInput.files[0]) {
+        alert('Veuillez sélectionner un fichier.');
+        return;
+    }
+    // Vérifier la taille du fichier
+    if (imgInput.files[0].size > maxFileSize) {
+        alert('Le fichier sélectionné est trop volumineux. La taille maximale autorisée est de 4 Mo.');
+        return;
+    }
+    // Vérifier le type de fichier
+    if (!allowedFileTypes.includes(imgInput.files[0].type)) {
+        alert('Le fichier sélectionné n\'est pas au format attendu. Les formats autorisés sont JPG et PNG.');
+        return;
+    }
+
     data.append('image', imgInput.files[0]);
     data.append('title', titleInput.value);
     data.append('category', categoryInput.value);
-
-
     fetch('http://localhost:5678/api/works', {
         method: 'POST',
         headers: {
@@ -158,15 +180,10 @@ submitBtn.addEventListener('submit', (event) => {
         })
         .then(work => {
             articlesAll.push(work);
-            // Mise à jour de la modale avec la liste mise à jour
             updateModal(articlesAll);
-            //reset le formulaire (qu'il soit vide pour un nouvel ajout)
             event.target.reset();
-            previousModal.click();
         })
         .catch(error => {
             console.log(error);
         });
 });
-
-

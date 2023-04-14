@@ -58,6 +58,7 @@ dialog {
     justify-content: center;
     padding-bottom: 30px;
     border-bottom: 1px solid #B3B3B3;
+    overflow-y: auto;
 }
 
 .modal-window figure {
@@ -135,12 +136,12 @@ dialog {
 
 .registration {
     width: 50%;
-    height: 70%;
+    height: 80%;
     margin: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    border-bottom: 1px solid #B3B3B3;
+    padding-bottom: 50px;
 }
 
 .registration label {
@@ -155,5 +156,15 @@ dialog {
 .validation {
     display: flex;
     justify-content: center;
+
+}
+
+.delete {
+    cursor:pointer
+}
+
+#category {
+    margin-bottom: 100px;
+
 
 }
