@@ -149,14 +149,15 @@ dialog {
 }
 
 .registration input[type="text"], .registration select {
-    height: 30px;
+    height: 40px;
     font-size: 15px;
+    border: none;
+    box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
 .validation {
     display: flex;
     justify-content: center;
-
 }
 
 .delete {
@@ -164,7 +165,41 @@ dialog {
 }
 
 #category {
-    margin-bottom: 100px;
+    margin-bottom: 30px;
+}
 
+.add-img {
+    height: 168px;
+    background-color: #E8F1F7;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
 
+.add-img p {
+    font-size: 10px;
+}
+
+.fa-image {
+    font-size: 50px;
+    color: #B9C5CC;
+    padding: 15px;
+}
+
+.input-picture {
+    width: 180px;
+    display: inline-block;
+    background-color: #CBD6DC;
+    font-family: 'Work Sans';
+    font-weight: 500;
+    color: #306685;
+    cursor: pointer;
+    text-align: center;
+    padding: 8px 0px;
+    border-radius: 20px;
+}
+
+#img-input {
+    display: none;
 }

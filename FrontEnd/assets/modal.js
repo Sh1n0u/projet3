@@ -1,4 +1,5 @@
-import { articlesAll } from './gallery.js';
+import { articlesAll, updateGallery } from './gallery.js';
+
 
 function createItem(article) {
     const itemElement = document.createElement("figure");
@@ -47,7 +48,7 @@ function createItem(article) {
 function updateModal(articles) {
     const modal = document.querySelector('.img-modal');
     while (modal.firstChild) {
-        modal.removeChild(modal.firstChild);
+        modal.firstChild.remove();
     }
     for (const article of articles) {
         const item = createItem(article);
@@ -181,6 +182,7 @@ submitBtn.addEventListener('submit', (event) => {
         .then(work => {
             articlesAll.push(work);
             updateModal(articlesAll);
+            updateGallery(articlesAll);
             event.target.reset();
         })
         .catch(error => {

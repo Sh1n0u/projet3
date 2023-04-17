@@ -18,7 +18,7 @@ function createFigure(article) {
     return figureElement;
 }
 
-function updateGallery(articles) {
+export function updateGallery(articles) {
     const gallery = document.querySelector(".gallery");
     while (gallery.firstChild) {
         gallery.removeChild(gallery.firstChild);
@@ -29,7 +29,7 @@ function updateGallery(articles) {
         gallery.appendChild(figure);
     }
 };
-updateGallery(articlesAll);
+ updateGallery(articlesAll);
 
 const buttonBar = document.querySelector('.button-bar');
 const allButton = document.createElement('button');
