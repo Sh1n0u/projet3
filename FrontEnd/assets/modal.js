@@ -4,12 +4,16 @@ import { articlesAll, updateGallery } from './gallery.js';
 function createItem(article) {
     const itemElement = document.createElement("figure");
     itemElement.setAttribute('data-id', article.id);
+
     const itemImageElement = document.createElement("img");
     itemImageElement.src = article.imageUrl;
+
     const textElement = document.createElement("p");
     textElement.textContent = "Editer";
+
     const deleteElement = document.createElement("span");
     deleteElement.classList.add("delete");
+
     const iconElement = document.createElement("i");
     iconElement.classList.add("fa-solid", "fa-trash-can", "background-trash");
 
@@ -32,24 +36,26 @@ function createItem(article) {
             } else {
                 throw new Error("Erreur lors de la suppression de l'élément");
             }
-        })
-            .catch(error => {
-                console.error(error);
-            });
+        }).catch(error => {
+            console.error(error);
+        });
     });
 
     deleteElement.appendChild(iconElement);
     itemElement.appendChild(deleteElement);
     itemElement.appendChild(itemImageElement);
     itemElement.appendChild(textElement);
+
     return itemElement;
-}
+};
 
 function updateModal(articles) {
     const modal = document.querySelector('.img-modal');
+
     while (modal.firstChild) {
         modal.firstChild.remove();
     }
+
     for (const article of articles) {
         const item = createItem(article);
         modal.appendChild(item);
@@ -61,6 +67,7 @@ updateModal(articlesAll);
 const openModal = function (e) {
     e.preventDefault();
     const target = document.querySelector(e.currentTarget.getAttribute('data-target'));
+
     if (target) {
         target.classList.remove("modal-disable");
         target.querySelector('.close-modal').addEventListener('click', closeModal);
@@ -82,6 +89,7 @@ document.querySelectorAll('.js-modal').forEach(a => {
 const closeModalOnEscape = function (e) {
     if (e.key === "Escape") {
         const modal = document.querySelector(".modal:not(.modal-disable)");
+
         if (modal) {
             modal.classList.add("modal-disable");
         }

@@ -6,7 +6,7 @@ function createFigure(article) {
     const figureElement = document.createElement("figure");
     // création de l'id de chaque figure
     figureElement.setAttribute('data-id', article.id);
-    figureElement.dataset.categoryId = article.category.id;
+    figureElement.dataset.categoryId = article.categoryId;
     // contenu de la figure
     const imageElement = document.createElement("img");
     imageElement.src = article.imageUrl;
@@ -29,7 +29,8 @@ export function updateGallery(articles) {
         gallery.appendChild(figure);
     }
 };
- updateGallery(articlesAll);
+
+updateGallery(articlesAll);
 
 const buttonBar = document.querySelector('.button-bar');
 const allButton = document.createElement('button');
@@ -80,10 +81,11 @@ if (localStorage.getItem('token')) {
     logOutElement.innerHTML = "Log out";
     // affichage du menu admin en étant connecté
     const gmElements = document.querySelectorAll('.gm');
+
     gmElements.forEach(element => {
-    element.classList.remove('gm');
-    const buttonBar = document.querySelector('.button-bar');
-    buttonBar.style.display = 'none';
+        element.classList.remove('gm');
+        const buttonBar = document.querySelector('.button-bar');
+        buttonBar.style.display = 'none';
     });
 };
 
