@@ -1,7 +1,7 @@
 const response = await fetch("http://localhost:5678/api/works");
 export const articlesAll = await response.json();
 
-function createFigure(article) {
+export function createFigure(article) {
     // création de la balise <figure>
     const figureElement = document.createElement("figure");
     // création de l'id de chaque figure
@@ -18,7 +18,7 @@ function createFigure(article) {
     return figureElement;
 }
 
-export function updateGallery(articles) {
+function updateGallery(articles) {
     const gallery = document.querySelector(".gallery");
     while (gallery.firstChild) {
         gallery.removeChild(gallery.firstChild);
@@ -46,23 +46,21 @@ fetch('http://localhost:5678/api/categories')
             button.textContent = categories[i].name;
             button.setAttribute('data-id', categories[i].id);
             buttonBar.appendChild(button);
+            button.addEventListener('click', (event) => {
+                const id = event.target.getAttribute('data-id');
+
+                if (id === null) {
+                    return;
+                } else {
+                    const filteredArticles = articlesAll.filter(article => article.category.id == id);
+                    updateGallery(filteredArticles);
+                }
+            });
         }
+        allButton.addEventListener('click', () => {
+            updateGallery(articlesAll);
+        });
     });
-
-// Filtrage de la page
-buttonBar.addEventListener('click', (event) => {
-    const id = event.target.getAttribute('data-id');
-    if (id === null) {
-        return;
-    }
-
-    if (id === 'all') {
-        updateGallery(articlesAll);
-    } else {
-        const filteredArticles = articlesAll.filter(article => article.category.id == id);
-        updateGallery(filteredArticles);
-    }
-});
 
 // Redirection et suppression de token en cas de click sur login/logut
 const login = document.getElementById('login');
@@ -78,7 +76,7 @@ login.addEventListener('click', () => {
 if (localStorage.getItem('token')) {
     // affichage du bouton Log Out si l'utilisateur est connecté
     const logOutElement = document.getElementById('login');
-    logOutElement.innerHTML = "Log out";
+    logOutElement.innerText = "Log out";
     // affichage du menu admin en étant connecté
     const gmElements = document.querySelectorAll('.gm');
 

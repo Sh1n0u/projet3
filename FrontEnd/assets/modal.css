@@ -13,19 +13,18 @@ dialog {
     display: flex;
     justify-content: center;
     align-items: center;
+
 }
 
 .modal-window {
     width: 630px;
-    height: 750px;
+    height: auto;
     max-width: 100vw;
+    max-height: 100vw;
     background-color: white;
     border-radius: 10px;
 }
 
-.modal-disable {
-    display: none
-}
 
 .title-gallery-modal {
     display: flex;
@@ -67,6 +66,10 @@ dialog {
     margin: 10px
 }
 
+.modal-disable, #img-input {
+    display: none;
+}
+
 .modal-window figure img{
     width: 100%;
     height: 80%;
@@ -78,6 +81,7 @@ dialog {
     flex-direction: column;
     justify-content: center;
     text-align: center;
+    padding-bottom: 50px;
 }
 
 .modal-button input[type="submit"] {
@@ -181,11 +185,7 @@ dialog {
     font-size: 10px;
 }
 
-.fa-image {
-    font-size: 50px;
-    color: #B9C5CC;
-    padding: 15px;
-}
+
 
 .input-picture {
     width: 180px;
@@ -200,6 +200,24 @@ dialog {
     border-radius: 20px;
 }
 
-#img-input {
+#preview {
+    width: 95px;
+    height: 100%;
+    overflow: auto;
+    padding: 10px 0px;
+}
+
+.fa-image {
+    font-size: 50px;
+    color: #B9C5CC;
+    padding: 15px;
+}
+
+
+.show {
+    display: block;
+}
+
+.hide {
     display: none;
 }

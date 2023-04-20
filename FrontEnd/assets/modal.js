@@ -1,4 +1,4 @@
-import { articlesAll, updateGallery } from './gallery.js';
+import { articlesAll, createFigure } from './gallery.js';
 
 
 function createItem(article) {
@@ -30,9 +30,9 @@ function createItem(article) {
             }
         }).then(response => {
             if (response.ok) {
-                const itemToDelete = document.querySelector(`[data-id="${id}"]`);
-                console.log(itemToDelete);
-                itemToDelete.remove();
+                const itemToDelete = document.querySelectorAll(`[data-id="${id}"]`);
+
+                itemToDelete.forEach(item => item.remove());
             } else {
                 throw new Error("Erreur lors de la suppression de l'élément");
             }
@@ -147,6 +147,37 @@ const titleInput = document.querySelector('#title');
 const categoryInput = document.querySelector('#category');
 const submitBtn = document.querySelector('.registration');
 const gallery = document.querySelector(".gallery");
+const galleryModal = document.querySelector(".img-modal");
+
+function refresh() {
+    const file = imgInput.files[0];
+    const reader = new FileReader();
+    const previewImg = document.getElementById('preview');
+    const defaultImg = document.getElementById('defaultImg');
+
+    if (file) {
+        reader.onload = () => {
+            previewImg.src = reader.result;
+        };
+        reader.readAsDataURL(file);
+        defaultImg.classList.add('hide');
+        
+        previewImg.classList.add('show');
+        previewImg.classList.remove('hide');
+
+    } else {
+        previewImg.classList.add('hide');
+        previewImg.classList.remove('show');
+
+        defaultImg.classList.add('show');
+        defaultImg.classList.remove('hide');
+    }
+}
+
+imgInput.addEventListener('change', () => {
+    refresh();
+});
+
 submitBtn.addEventListener('submit', (event) => {
     event.preventDefault();
 
@@ -158,6 +189,7 @@ submitBtn.addEventListener('submit', (event) => {
     // Vérifier que le fichier a été sélectionné
     if (!imgInput.files[0]) {
         alert('Veuillez sélectionner un fichier.');
+        console.log(imgInput.files)
         return;
     }
     // Vérifier la taille du fichier
@@ -188,12 +220,22 @@ submitBtn.addEventListener('submit', (event) => {
             throw new Error('ça morche po');
         })
         .then(work => {
-            articlesAll.push(work);
-            updateModal(articlesAll);
-            updateGallery(articlesAll);
+            const newFigure = createFigure(work);
+            gallery.appendChild(newFigure);
+
+            const newItem = createItem(work);
+            galleryModal.append(newItem);
+
+
+            console.log(imgInput.files)
             event.target.reset();
+            console.log(imgInput.files)
+            refresh();
+
+
         })
         .catch(error => {
             console.log(error);
         });
 });
+

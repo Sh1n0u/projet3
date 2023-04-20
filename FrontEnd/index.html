@@ -102,11 +102,14 @@
 					<button class="previous-modal"><i class="fa-solid fa-arrow-left"></i></button>
 					<h2>Ajouter une photo</h2>
 				</div>
-				<form class="registration"  action="" method="post">
+				<form class="registration" id="registration"  action="" method="post">
 					<div class="add-img">
-						<i class="fa-sharp fa-regular fa-image"></i>
+						<div id="defaultImg">
+							<i class="fa-sharp fa-regular fa-image" ></i>
+						</div>
+						<img id="preview" class="hide">
 						<label for="img-input" class="input-picture">+ Ajout Photo</label>
-						<input id="img-input" type="file"  accept="image/*">
+						<input id="img-input" type="file"  accept=".jpg,.png">
 						<p>jpg, png : 4mo max</p>
 					</div>
 					<label for="title">Nom de l'image</label>
