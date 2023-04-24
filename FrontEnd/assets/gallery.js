@@ -32,6 +32,10 @@ function updateGallery(articles) {
 
 updateGallery(articlesAll);
 
+
+//
+//Filtrage des projets
+//
 const buttonBar = document.querySelector('.button-bar');
 const allButton = document.createElement('button');
 allButton.textContent = 'Tous';
@@ -53,7 +57,18 @@ fetch('http://localhost:5678/api/categories')
                     return;
                 } else {
                     const filteredArticles = articlesAll.filter(article => article.category.id == id);
-                    updateGallery(filteredArticles);
+                    const otherArticles = articlesAll.filter(article => article.category.id != id);
+                    //Boucle de recherche des ID sélectionné
+                    for (const article of filteredArticles) {
+                        const figure = document.querySelector(`figure[data-id="${article.id}"]`);
+                        figure.style.display = 'block';
+                    };
+                    // BOucle de recherche des ID non sélectionné
+                    for (const article of otherArticles) {
+                        const figure = document.querySelector(`figure[data-id="${article.id}"]`);
+                        figure.style.display = 'none';
+                    };
+                    // updateGallery(filteredArticles);
                 }
             });
         }
@@ -62,7 +77,19 @@ fetch('http://localhost:5678/api/categories')
         });
     });
 
+
+
+
+
+
+
+
+
+
+
+//
 // Redirection et suppression de token en cas de click sur login/logut
+//
 const login = document.getElementById('login');
 login.addEventListener('click', () => {
     if (localStorage.getItem('token')) {
