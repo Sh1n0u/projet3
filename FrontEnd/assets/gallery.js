@@ -61,12 +61,12 @@ fetch('http://localhost:5678/api/categories')
                     //Boucle de recherche des ID sélectionné
                     for (const article of filteredArticles) {
                         const figure = document.querySelector(`figure[data-id="${article.id}"]`);
-                        figure.style.display = 'block';
+                        figure.classList.remove('hide');
                     };
                     // BOucle de recherche des ID non sélectionné
                     for (const article of otherArticles) {
                         const figure = document.querySelector(`figure[data-id="${article.id}"]`);
-                        figure.style.display = 'none';
+                        figure.classList.add('hide');
                     };
                     // updateGallery(filteredArticles);
                 }
