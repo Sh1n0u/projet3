@@ -1,9 +1,18 @@
 
-
-
-
-
 const form = document.getElementById('connexion');
+
+function showModal(message) {
+    const modal = document.getElementById('modal');
+    const modalMessage = document.getElementById('modal-message');
+    modalMessage.textContent = message;
+    modal.style.display = 'block';
+
+    // Gestionnaire d'événement pour fermer la modale en cliquant sur le bouton de fermeture (la croix "x")
+    const modalClose = document.getElementById('modal-close');
+    modalClose.onclick = function () {
+      modal.style.display = 'none';
+    };
+}
 
 form.addEventListener('click', (event) => {
 	event.preventDefault(); // Empêcher l'envoi du formulaire
@@ -13,7 +22,7 @@ form.addEventListener('click', (event) => {
 
 	// Vérifier que l'email et le mot de passe ont été fournis
 	if (!email || !password) {
-		alert('Veuillez fournir un email et un mot de passe');
+		showModal('Veuillez fournir un email et un mot de passe');
 		return;
 	}
 
@@ -37,18 +46,9 @@ form.addEventListener('click', (event) => {
 				window.location.href = 'index.html';
 			} else {
 				// Si l'authentification échoue, afficher un message d'erreur
-				alert('Email ou mot de passe incorrect');
+				showModal('Email ou mot de passe incorrect');
 				window.location.href = 'login.html';
 			}
 		})
-		.catch(error => {
-			console.error(error);
-			alert('Une erreur est survenue');
-		});
 });
 
-
-if (localStorage.getItem('token')) {
-	const logOutElement = document.getElementById('login');
-	logOutElement.textContent = "Log out"
-}

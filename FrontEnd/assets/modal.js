@@ -1,5 +1,18 @@
 import { articlesAll, createFigure } from './gallery.js';
 
+function showModal(message) {
+    const modal = document.getElementById('modal');
+    const modalMessage = document.getElementById('modal-message');
+    modalMessage.textContent = message;
+    modal.style.display = 'block';
+
+    // Gestionnaire d'événement pour fermer la modale en cliquant sur le bouton de fermeture (la croix "x")
+    const modalClose = document.getElementById('modal-close');
+    modalClose.onclick = function () {
+      modal.style.display = 'none';
+    };
+
+}
 
 function createItem(article) {
     const itemElement = document.createElement("figure");
@@ -31,13 +44,10 @@ function createItem(article) {
         }).then(response => {
             if (response.ok) {
                 const itemToDelete = document.querySelectorAll(`[data-id="${id}"]`);
-
                 itemToDelete.forEach(item => item.remove());
             } else {
                 throw new Error("Erreur lors de la suppression de l'élément");
             }
-        }).catch(error => {
-            console.error(error);
         });
     });
 
@@ -48,6 +58,7 @@ function createItem(article) {
 
     return itemElement;
 };
+
 
 function updateModal(articles) {
     const modal = document.querySelector('.img-modal');
@@ -95,7 +106,7 @@ const closeModalOnEscape = function (e) {
         }
     }
 };
-// Ajouter l'écouteur d'événements sur le document
+// Ajouter de la fermeture de la modale par touche ECHAP
 document.addEventListener("keydown", closeModalOnEscape);
 
 //
@@ -134,12 +145,8 @@ fetch("http://localhost:5678/api/categories")
         });
     });
 
-
-
-
-
 //
-// fonction POST
+// fonction POST de la nouvelle photo
 //
 const token = localStorage.getItem('token');
 const imgInput = document.querySelector('#img-input');
@@ -161,7 +168,7 @@ function refresh() {
         };
         reader.readAsDataURL(file);
         defaultImg.classList.add('hide');
-        
+
         previewImg.classList.add('show');
         previewImg.classList.remove('hide');
 
@@ -183,23 +190,27 @@ submitBtn.addEventListener('submit', (event) => {
 
     let bearer = 'Bearer ' + token;
     let data = new FormData();
-    const maxFileSize = 4 * 1024 * 1024; // 4 Mo en octets
+    const maxFileSize = 4 * 1024 * 1024; // 4 Mo en octets max
     const allowedFileTypes = ['image/jpeg', 'image/png'];
 
     // Vérifier que le fichier a été sélectionné
     if (!imgInput.files[0]) {
-        alert('Veuillez sélectionner un fichier.');
-        console.log(imgInput.files)
+        showModal('Veuillez sélectionner un fichier.');
         return;
     }
     // Vérifier la taille du fichier
     if (imgInput.files[0].size > maxFileSize) {
-        alert('Le fichier sélectionné est trop volumineux. La taille maximale autorisée est de 4 Mo.');
+        showModal('Le fichier sélectionné est trop volumineux. La taille maximale autorisée est de 4 Mo.');
         return;
     }
     // Vérifier le type de fichier
     if (!allowedFileTypes.includes(imgInput.files[0].type)) {
-        alert('Le fichier sélectionné n\'est pas au format attendu. Les formats autorisés sont JPG et PNG.');
+        showModal('Le fichier sélectionné n\'est pas au format attendu. Les formats autorisés sont JPG et PNG.');
+        return;
+    }
+
+    if (titleInput.value.trim() === '') {
+        showModal("Veuillez saisir le nom de l'image");
         return;
     }
 

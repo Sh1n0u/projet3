@@ -109,7 +109,7 @@
 						</div>
 						<img id="preview" class="hide">
 						<label for="img-input" class="input-picture">+ Ajout Photo</label>
-						<input id="img-input" type="file"  accept=".jpg,.png">
+						<input id="img-input" type="file">
 						<p>jpg, png : 4mo max</p>
 					</div>
 					<label for="title">Nom de l'image</label>
@@ -119,6 +119,14 @@
 					<input type="submit" class="validation" value="Valider">
 				</form>
 			</div>
+
+			<div id="modal" class="modal-error">
+				<div class="modal-content">
+					<p id="modal-message"></p>
+					<span class="close" id="modal-close">&times;</span>
+				</div>
+			</div>
+
 		</dialog>
 	</body>
 </html>

@@ -1,6 +1,7 @@
 const response = await fetch("http://localhost:5678/api/works");
 export const articlesAll = await response.json();
 
+
 export function createFigure(article) {
     // création de la balise <figure>
     const figureElement = document.createElement("figure");
@@ -68,7 +69,6 @@ fetch('http://localhost:5678/api/categories')
                         const figure = document.querySelector(`figure[data-id="${article.id}"]`);
                         figure.classList.add('hide');
                     };
-                    // updateGallery(filteredArticles);
                 }
             });
         }
@@ -76,14 +76,6 @@ fetch('http://localhost:5678/api/categories')
             updateGallery(articlesAll);
         });
     });
-
-
-
-
-
-
-
-
 
 
 
@@ -106,7 +98,6 @@ if (localStorage.getItem('token')) {
     logOutElement.innerText = "Log out";
     // affichage du menu admin en étant connecté
     const gmElements = document.querySelectorAll('.gm');
-
     gmElements.forEach(element => {
         element.classList.remove('gm');
         const buttonBar = document.querySelector('.button-bar');
