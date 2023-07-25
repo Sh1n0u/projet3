@@ -307,9 +307,7 @@ input[type="email"], input[type="password"] {
 	justify-content: center;
 }
 
-.gm {
-	display: none;
-}
+
 /* ///////////////////////////////// */
 
 .modal-error {

@@ -10,6 +10,7 @@
         <meta name="description" content="Page Login du site de Sophie Bluel">
         <link rel="stylesheet" href="./assets/style.css">
         <script type="module" src="./assets/login.js"></script>
+        <script type="module" src="./assets/modal_error.js"></script>
     </head>
 
     <body>
@@ -33,10 +34,10 @@
                 <input type="button" name="connexion" id="connexion" value="Connexion">
             </form>
 
-            <div id="modal" class="modal-error">
+            <div id="modal-error" class="modal-error">
 				<div class="modal-content">
                     <p id="modal-message"></p>
-                    <span class="close">&times;</span>
+                    <span id="modal-close" class="close">&times;</span>
 				</div>
 			</div>
 

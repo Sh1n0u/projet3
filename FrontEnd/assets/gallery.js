@@ -1,7 +1,7 @@
 const response = await fetch("http://localhost:5678/api/works");
 export const articlesAll = await response.json();
 
-
+// Fonction de création des éléments de la galerie
 export function createFigure(article) {
     // création de la balise <figure>
     const figureElement = document.createElement("figure");
@@ -19,6 +19,63 @@ export function createFigure(article) {
     return figureElement;
 }
 
+// Fonction de création du menu admin
+function createAdminContent() {
+    //création du bandeau admin en haut de page
+    const parentElement = document.getElementById('admin-band');
+    const adminDiv = document.createElement('div');
+    adminDiv.classList.add('admin-band');
+
+    const iconElement = document.createElement('i');
+    iconElement.classList.add('fa-regular', 'fa-pen-to-square');
+
+    const godModeElement = document.createElement('p');
+    godModeElement.classList.add('god-mode');
+    godModeElement.textContent = 'Mode édition';
+
+    const publishElement = document.createElement('p');
+    publishElement.classList.add('publish');
+    publishElement.textContent = 'publier les changements';
+
+    adminDiv.appendChild(iconElement);
+    adminDiv.appendChild(godModeElement);
+    adminDiv.appendChild(publishElement);
+    parentElement.appendChild(adminDiv);
+
+    // Création du bouton modifier sous portrait
+    const parentElementP = document.getElementById('admin-picture');
+    const adminPictureDiv = document.createElement('div');
+    adminPictureDiv.classList.add('dflex', 'align');
+
+    const iconElementP = document.createElement('i');
+    iconElementP.classList.add('fa-regular', 'fa-pen-to-square');
+
+    const modifyElementP = document.createElement('p');
+    modifyElementP.textContent = 'modifier';
+
+    adminPictureDiv.appendChild(iconElementP);
+    adminPictureDiv.appendChild(modifyElementP);
+    parentElementP.appendChild(adminPictureDiv);
+
+
+    // Création du bouton modifier de la galerie
+    const parentElementEdit = document.getElementById('admin-edit');
+    const adminEditDiv = document.createElement('div');
+    adminEditDiv.classList.add('dflex', 'align');
+
+    const iconElementEdit = document.createElement('i');
+    iconElementEdit.classList.add('fa-regular', 'fa-pen-to-square');
+
+    const modifyElementEdit = document.createElement('p');
+    modifyElementEdit.textContent = 'modifier';
+
+    adminEditDiv.appendChild(iconElementEdit);
+    adminEditDiv.appendChild(modifyElementEdit);
+    parentElementEdit.appendChild(adminEditDiv);
+}
+
+
+// fonction d'affichage de la galerie
 function updateGallery(articles) {
     const gallery = document.querySelector(".gallery");
     while (gallery.firstChild) {
@@ -34,9 +91,8 @@ function updateGallery(articles) {
 updateGallery(articlesAll);
 
 
-//
-//Filtrage des projets
-//
+
+// filtrage des éléments de la galerie
 const buttonBar = document.querySelector('.button-bar');
 const allButton = document.createElement('button');
 allButton.textContent = 'Tous';
@@ -84,24 +140,20 @@ fetch('http://localhost:5678/api/categories')
 //
 const login = document.getElementById('login');
 login.addEventListener('click', () => {
-    if (localStorage.getItem('token')) {
-        localStorage.removeItem('token')
-        window.location.href = 'index.html';
-    } else {
-        window.location.href = 'login.html';
-    }
+  if (localStorage.getItem('token')) {
+    localStorage.removeItem('token');
+    window.location.href = 'index.html';
+  } else {
+    window.location.href = 'login.html';
+  }
 });
 
 if (localStorage.getItem('token')) {
     // affichage du bouton Log Out si l'utilisateur est connecté
     const logOutElement = document.getElementById('login');
     logOutElement.innerText = "Log out";
-    // affichage du menu admin en étant connecté
-    const gmElements = document.querySelectorAll('.gm');
-    gmElements.forEach(element => {
-        element.classList.remove('gm');
-        const buttonBar = document.querySelector('.button-bar');
-        buttonBar.style.display = 'none';
-    });
-};
-
+    // suppression de la button bar
+    buttonBar.style.display = 'none';
+    // affichage du menu admin
+    createAdminContent();
+}

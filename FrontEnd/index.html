@@ -14,13 +14,11 @@
 		<script src="https://kit.fontawesome.com/9e8c8ab3c0.js" crossorigin="anonymous"></script>
 		<script type="module" src="./assets/gallery.js"></script>
 		<script type="module" src="./assets/modal.js"></script>
+		<script type="module" src="./assets/modal_error.js"></script>
 
 	</head>
 	<body>
-		<div class="gm admin-band">
-			<i class="fa-regular fa-pen-to-square"></i>
-			<p class="god-mode">Mode édition</p>
-			<p class="publish">publier les changements</p>
+		<div id="admin-band">
 		</div>
 		<header>
 			<a href="index.html"><h1>Sophie Bluel <span>Architecte d'intérieur</span></h1></a>
@@ -45,18 +43,17 @@
 					<p>En cas de besoin, une équipe pluridisciplinaire peut-être constituée : architecte DPLG, décorateur(trice)</p>
 				</article>
 			</section>
-			<div class="gm dflex align">
-				<i class="fa-regular fa-pen-to-square"></i>
-				<p>modifier</p>
+			<div id="admin-picture">
+
 			</div>
 			<section id="portfolio">
 				<div class="dflex project-title">
 					<h2>Mes projets</h2>
 					<a href="" class="js-modal" data-target="#modal-modif">
-						<div class="gm dflex align">
-							<i class="fa-regular fa-pen-to-square"></i>
-							<p>modifier</p>
+						<div id="admin-edit">
+
 						</div>
+
 					</a>
 
 				</div>
@@ -120,7 +117,7 @@
 				</form>
 			</div>
 
-			<div id="modal" class="modal-error">
+			<div id="modal-error" class="modal-error">
 				<div class="modal-content">
 					<p id="modal-message"></p>
 					<span class="close" id="modal-close">&times;</span>
